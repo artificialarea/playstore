@@ -2,19 +2,16 @@ const express = require("express");
 const morgan = require("morgan");
 const playstore = require("./playstore");
 const { query } = require("express");
+const { forEach } = require("./playstore");
 
 const app = express();
 
 app.use(morgan("dev"));
 
 app.get("/apps", (req, res) => {
-  const { sort, genres } = req.query;
-  let results = playstore;
+  const { sort, genres, search = ''} = req.query;
 
-  // make all keys in playstore/results lowercase
-  Object.keys(results).forEach(function(key) {
-    console.log(key);
-  });
+  let results = playstore.filter( game => game.App.toLowerCase().includes(search.toLocaleLowerCase()) );
 
   if (sort) {
     if (!["Rating", "App"].includes(sort)) {
