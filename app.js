@@ -1,33 +1,36 @@
 const express = require("express");
 const morgan = require("morgan");
 const playstore = require("./playstore");
-const { query } = require("express");
-const { forEach } = require("./playstore");
 
 const app = express();
 
 app.use(morgan("dev"));
 
 app.get("/apps", (req, res) => {
-  const { sort, genres, search = ''} = req.query;
+  const { sort, genres, search = '' } = req.query;
 
-  let results = playstore.filter( game => game.App.toLowerCase().includes(search.toLocaleLowerCase()));
-
+  // VALIDATION
   if (sort) {
-    if (!["Rating", "App"].includes(sort)) {
-      return res.status(400).send("Sort must be by Rating or App");
+    if (!["rating", "app"].includes(sort.toLowerCase())) {
+      return res.status(400).send("Sort must be by 'Rating' or 'App'");
     }
   }
 
   if (genres) {
-    if (!["action", "puzzle", "strategy", "casual", "arcade", "card"].includes(genres)) {
+    if (!["action", "puzzle", "strategy", "casual", "arcade", "card"].includes(genres.toLowerCase())) {
       return res.status(400).send("Genre must be either Action, Puzzle, Strategy, Casual, Arcade, or Card.");
     }
   }
 
+  // if search
+  let results = playstore
+    .filter(game => 
+      game
+        .App
+        .toLowerCase()
+        .includes(search.toLowerCase()));
+
   if (genres) {
-    // console.log('genres invoked')
-    // console.log(genres)
     results = results.filter(game =>
       game
         .Genres
@@ -36,19 +39,13 @@ app.get("/apps", (req, res) => {
     );
   }
   
-
   if (sort) {
-    console.log(sort);
-    // sort = sort.toLowerCase
     results = results.sort((a, b) => {
       return a[sort] > b[sort] ? 1 : a[sort] < b[sort] ? -1 : 0;
     });
   }
 
-
   res.json(results);
-
-
 
 });
 
