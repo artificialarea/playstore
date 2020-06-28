@@ -11,7 +11,7 @@ app.get("/apps", (req, res) => {
 
   // VALIDATION
   if (sort) {
-    if (!["rating", "app"].includes(sort.toLowerCase())) {
+    if (!["Rating", "App"].includes(sort)) {
       return res.status(400).send("Sort must be by 'Rating' or 'App'");
     }
   }
@@ -41,7 +41,14 @@ app.get("/apps", (req, res) => {
   
   if (sort) {
     results = results.sort((a, b) => {
-      return a[sort] > b[sort] ? 1 : a[sort] < b[sort] ? -1 : 0;
+      // return a[sort] > b[sort] ? 1 : a[sort] < b[sort] ? -1 : 0;
+      return ( 
+        a[sort] > b[sort] ? 
+          (sort === 'App' ? 1 : -1)  // if app: a to z , else ratings: hi to lo
+        : a[sort] < b[sort] ? 
+          (sort === 'App' ? -1 : 1) 
+        : 0
+      )
     });
   }
 
