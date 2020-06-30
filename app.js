@@ -62,9 +62,9 @@ app.get("/apps", (req, res) => {
 // from the application code (everything else)
 // by placing the app.listen controller code in a seperate file (server.js)
 //
-app.listen(8000, () => {
-  console.log("Express server is listening on 8000...");
-});
+// app.listen(8000, () => {
+//   console.log("Express server is listening on 8000...");
+// });
 //
 // Export this module for server.js to require/import
-// module.exports = app;
+module.exports = app;
