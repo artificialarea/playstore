@@ -19,18 +19,19 @@ const playstore = require('../playstore');
 describe('GET /apps endpoint', () => {
 
   it('returns the full playstore array with no query', () => {
-    // return supertest(app)
-    //   .get('/apps')
-    //   .expect('Content-Type', /json/)
-    //   .expect(200, done);
-      // .then(res => {
-      //   // make sure you get an array
-      //   expect(res.body).to.be.an('array');
-      //   // array must not be empty
-      //   expect(res.body).to.have.lengthOf.at.least(1);
-      //   // array of all apps
-      //   expect(res.body).to.deep.equal(playstore); // could use '.to.eql(playstore)' instead
-      // })
+    return supertest(app)
+      .get('/apps')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .then(res => {
+        // console.log(res.body);
+        // make sure you get an array
+        expect(res.body).to.be.an('array');
+        // array must not be empty
+        expect(res.body).to.have.lengthOf.at.least(1);
+        // array of all apps
+        expect(res.body).to.deep.equal(playstore); // could use '.to.eql(playstore)' instead
+      });
   });
 
 });
