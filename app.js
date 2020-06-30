@@ -22,7 +22,7 @@ app.get("/apps", (req, res) => {
     }
   }
 
-  // if search
+  // if (search)
   let results = playstore
     .filter(game => 
       game
@@ -56,6 +56,15 @@ app.get("/apps", (req, res) => {
 
 });
 
-app.listen(8080, () => {
-  console.log("Express server is listening on 8080...");
+// SEPARATE SERVER FROM APP FOR TESING
+// To prepare the app for testing, need to
+// seperate the server controller code 
+// from the application code (everything else)
+// by placing the app.listen controller code in a seperate file (server.js)
+//
+app.listen(8000, () => {
+  console.log("Express server is listening on 8000...");
 });
+//
+// Export this module for server.js to require/import
+// module.exports = app;
