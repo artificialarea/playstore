@@ -4,10 +4,10 @@ const supertest = require('supertest');   // tool for testing HTTP calls
 
 const app = require('../app');
 const playstore = require('../playstore');
-const { get } = require('../app');
 
 // POSSIBLE TESTS for /books endpoint...
 // [x] response 200 array exists
+// [ ] ^^^ incl. expect(res.body[0].to.include.all.keys( */ list keys */))
 // [x] response 400 if sort query values incorrect
 // [x] response 400 if genre query values incorrect
 // [x] response 200 if sort query App sorts array by title alphabetically from A-Z
