@@ -56,6 +56,8 @@ app.get("/apps", (req, res) => {
 
 });
 
-app.listen(8080, () => {
-  console.log("Express server is listening on 8080...");
-});
+module.exports = app
+
+// app.listen(8080, () => {
+//   console.log("Express server is listening on 8080...");
+// });
